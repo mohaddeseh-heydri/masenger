@@ -1,7 +1,9 @@
 body {
     height: 100vh;
     color: rgba(242, 242, 242, 1);
-
+    background-image: url("../images/bg.png");
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
 .signup {
@@ -9,9 +11,19 @@ body {
     font-style: normal;
     font-weight: 400;
     padding: 2rem;
-    background-image: url("../images/bg.png");
-    background-size: cover;
-    background-repeat: no-repeat;
+    
+}
+
+@media screen and (max-width: 480px) {
+    body {
+        background-image: url("../images/bg-smal.PNG");
+    }
+}
+
+@media screen and (min-width: 480px) {
+    .signup{
+        width: 400px;
+    }
 }
 
 .logo {

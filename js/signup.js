@@ -281,8 +281,9 @@ document.getElementById("btn").addEventListener("click", function (event) {
 
                 alert(response.message);
 
-                // if(success)
-                //   window.location.assign('url...')
+                //باید بدون حالت لایو سرور رفت تا دسترسی به لوکال داشته باشد
+                if(success)
+                  window.location.href = "file:///C:/Users/User/Downloads/faravin/messenger/indextLogin.html";
             }
         );
     } else {
