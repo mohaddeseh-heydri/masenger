@@ -50,26 +50,28 @@ document.getElementById("btn").addEventListener("click", function (event) {
         button.classList.remove("btn");
         document.querySelector(".error-signup").style.display = 'none';
 
-        var counter = 0
+        var counter = 1
         for (let i = 0; i < usersList.length; i++) {
-            if (phoneNumberForm == usersList[i].mobileNumber && userNameForm == usersList[i].userName) {
-                button.classList.add("btn");
-                document.querySelector(".error-signup").style.display = 'block';
-                alert('قبلا ثبت نام شده')
-                counter++
-            } else {
+            if (phoneNumberForm == usersList[i].mobileNumber && userNameForm != usersList[i].userName) {
                 var newUser = {
                     mobileNumber: phoneNumberForm,
                     userName: userNameForm
-                }
+                };
+                counter = 0;
+                break;
+            } else {
+                counter++
             }
         }
         if (counter == 0) {
-            alert('کاربر جدید به لیست اضافه شد')
             usersList.push(newUser)
             console.log(usersList)
+        } else {
+            button.classList.add("btn");
+            document.querySelector(".error-signup").style.display = 'block';
+            alert("نام جدید تکراری بود");
         }
-        form.reset()
+
 
     } else {
         button.classList.add("btn");
