@@ -1,4 +1,61 @@
 
+
+/**
+ * @type {HTMLDivElement}
+ */
+
+farawin.getContacts((result) => {
+    console.table(result.contactList);
+    for (const contactItem of result.contactList) {
+        var newUser = {
+            username: contactItem.username,
+            name: contactItem.name
+        }
+        usersList.push(newUser);
+
+        let div = document.createElement("div");
+        div.innerHTML = `
+        <div class="profile d-flex align-items-center ">
+            <img class="img-profile ms-2" src="images/profile-circle.svg" alt="plase">
+            <p class="flex-grow-1 name-profile">${contactItem.name}</p>
+        </div>
+        `;
+        document.querySelector(".list").appendChild(div);
+    }
+});
+
+let usersList = [
+    { username: "", name: "" }
+];
+
+let profiles = document.getElementsByClassName("profile")
+
+
+
+setTimeout(
+    function () {
+        for (let i = 0; i < profiles.length; i++) {
+            profiles[i].addEventListener("click", function () {
+                console.log(profiles[i]);
+            });
+        }
+}, 1000);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // addcontact
 
 const modalAddContact = document.querySelector(".modal-addcontact");
@@ -24,15 +81,6 @@ const openModal = function () {
 // open modal event
 openModalBtnAddContact.addEventListener("click", openModal);
 
-let usersList = [
-    { mobileNumber: "09152076110", userName: "محی" },
-    { mobileNumber: "09111111111", userName: "ممد" },
-    { mobileNumber: "09222222222", userName: "مملی" },
-    { mobileNumber: "09333333333", userName: "ماهی" },
-    { mobileNumber: "09444444444", userName: "مهلا" },
-    { mobileNumber: "09555555555", userName: "مهیا" },
-];
-
 var button = document.getElementById("btn-add-contact");
 var rsult = true;
 var number = document.getElementById('call').value;
@@ -49,15 +97,15 @@ document.getElementById("btn-add-contact").addEventListener("click", function (e
 
         var counter = 0
         for (let i = 0; i < usersList.length; i++) {
-            if (phoneNumberForm == usersList[i].mobileNumber && userNameForm == usersList[i].userName) {
+            if (phoneNumberForm == usersList[i].username && userNameForm == usersList[i].name) {
                 button.classList.add("btn");
                 document.querySelector(".error-signup").style.display = 'block';
                 alert('قبلا ثبت نام شده')
                 counter++
             } else {
                 var newUser = {
-                    mobileNumber: phoneNumberForm,
-                    userName: userNameForm
+                    username: phoneNumberForm,
+                    name: userNameForm
                 }
             }
         }
@@ -170,15 +218,6 @@ const openModalEditcontact = function () {
 // open modal event
 openModalBtnEditcontact.addEventListener("click", openModalEditcontact);
 
-let usersListEdit = [
-    { mobileNumber: "09152076110", userName: "محی" },
-    { mobileNumber: "09111111111", userName: "ممد" },
-    { mobileNumber: "09222222222", userName: "مملی" },
-    { mobileNumber: "09333333333", userName: "ماهی" },
-    { mobileNumber: "09444444444", userName: "مهلا" },
-    { mobileNumber: "09555555555", userName: "مهیا" },
-];
-
 var buttonEditcontact = document.getElementById("btnEditcontact");
 var rsultEdit = true;
 var numberEditContact = document.getElementById('callEditContact').value;
@@ -194,9 +233,9 @@ document.getElementById("btnEditcontact").addEventListener("click", function (ev
         document.querySelector(".error-editcontact").style.display = 'none';
 
         var counterEdit = false;
-        for (let i = 0; i < usersListEdit.length; i++) {
-            if (phonerFormEdit == usersListEdit[i].mobileNumber && userNameFormEdit != usersListEdit[i].userName) {
-                usersListEdit[i].userName = userNameFormEdit;
+        for (let i = 0; i < usersList.length; i++) {
+            if (phonerFormEdit == usersList[i].username && userNameFormEdit != usersList[i].name) {
+                usersList[i].name = userNameFormEdit;
                 counterEdit = true;
                 break;
             } else {
@@ -204,7 +243,7 @@ document.getElementById("btnEditcontact").addEventListener("click", function (ev
             }
         }
         if (counterEdit == true) {
-            console.log(usersListEdit);
+            console.log(usersList);
             alert("نام جدید ثبت شد")
         } else {
             buttonEditcontact.classList.add("btn");
