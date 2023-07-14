@@ -1,3 +1,4 @@
+// if ( !localStorage.token ) location.assign( "../indextLogin.html" );
 
 let usersList = [
     { username: "", name: "" }
