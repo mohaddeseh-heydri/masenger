@@ -146,7 +146,7 @@ button>img {
 
 
 
-/* addContact */
+/* addContact & editContact */
 .addContact,
 .editContact {
     position: fixed;
@@ -199,6 +199,7 @@ button>img {
 
 
 /* chat */
+
 .chat-right,
 .chat-left-header,
 .chat-left-footer {
@@ -206,6 +207,11 @@ button>img {
     border: 1px solid rgba(242, 242, 242, 0.20);
     background: rgba(242, 242, 242, 0.10);
     backdrop-filter: blur(2px);
+}
+
+.list {
+    height: 70vh;
+    overflow-y: auto;
 }
 
 .img-plase,

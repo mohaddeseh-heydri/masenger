@@ -1,45 +1,51 @@
 
-
-/**
- * @type {HTMLDivElement}
- */
-
-farawin.getContacts((result) => {
-    console.table(result.contactList);
-    for (const contactItem of result.contactList) {
-        var newUser = {
-            username: contactItem.username,
-            name: contactItem.name
-        }
-        usersList.push(newUser);
-
-        let div = document.createElement("div");
-        div.innerHTML = `
-        <div class="profile d-flex align-items-center ">
-            <img class="img-profile ms-2" src="images/profile-circle.svg" alt="plase">
-            <p class="flex-grow-1 name-profile">${contactItem.name}</p>
-        </div>
-        `;
-        document.querySelector(".list").appendChild(div);
-    }
-});
-
 let usersList = [
     { username: "", name: "" }
 ];
 
-let profiles = document.getElementsByClassName("profile")
+function sync() {
+    farawin.getContacts((result) => {
+        console.table(result.contactList);
+        for (const contactItem of result.contactList) {
+            var newUser = {
+                username: contactItem.username,
+                name: contactItem.name
+            }
+            usersList.push(newUser);
 
+            let div = document.createElement("div");
+            div.innerHTML = `
+                <div class="profile d-flex align-items-center">
+                    <img class="img-profile ms-2" src="images/profile-circle.svg" alt="plase">
+                    <p class="flex-grow-1 name-profile">${contactItem.name}</p>
+                </div>
+            `;
+            document.querySelector(".list").appendChild(div);
+        }
+    });
+}
+sync();
 
-
+let profiles = document.getElementsByClassName("profile");
+let userSelect = "";
+//بعد از 1 ثانیه گفتم چک بشه چون 1 ثانیه عموما طول می کشه لیست پر بشه
 setTimeout(
     function () {
         for (let i = 0; i < profiles.length; i++) {
             profiles[i].addEventListener("click", function () {
-                console.log(profiles[i]);
+                if (userSelect != "") {
+                    userSelect.classList.remove("profile-select");
+                    userSelect.classList.add("profile");
+                    userSelect.querySelector(".img-profile").src = "images/profile-circle.svg";
+                }
+                userSelect = profiles[i];
+                userSelect.classList.remove("profile");
+                userSelect.classList.add("profile-select");
+                userSelect.querySelector(".img-profile").src = "images/profile-circle-action.svg";
+                document.getElementById("name-profile-select").textContent = userSelect.querySelector(".name-profile").textContent;
             });
         }
-}, 1000);
+    }, 1000);
 
 
 
