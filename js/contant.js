@@ -23,29 +23,46 @@ function sync() {
             document.querySelector(".list").appendChild(div);
         }
     });
+    let profiles = document.getElementsByClassName("profile");
+    let userSelect = "";
+    //بعد از 1 ثانیه گفتم چک بشه چون 1 ثانیه عموما طول می کشه لیست پر بشه
+    setTimeout(
+        function () {
+            for (let i = 0; i < profiles.length; i++) {
+                profiles[i].addEventListener("click", function () {
+                    if (userSelect != "") {
+
+                        //کلاس های اکشن یوزرانتخاب شده قبلی برداشته می شود
+                        userSelect.classList.remove("profile-select");
+                        userSelect.classList.add("profile");
+                        userSelect.querySelector(".img-profile").src = "images/profile-circle.svg";
+                    }
+                    userSelect = profiles[i];
+                    userSelect.classList.remove("profile");
+                    userSelect.classList.add("profile-select");
+                    userSelect.querySelector(".img-profile").src = "images/profile-circle-action.svg";
+                    document.getElementById("name-profile-select").textContent = userSelect.querySelector(".name-profile").textContent;
+                    //وقتی یوزری سلکت شده است/ حالت غیر فعالی مخاطب برداشته می شود
+                    document.querySelector(".img-profile-select").style.filter = "blur(0px)";
+                    document.querySelector(".img-edit").style.filter = "blur(0px)";
+                    document.querySelector(".img-refresh-text").style.filter = "blur(0px)";
+                });
+            }
+        }, 1000);
 }
 sync();
 
-let profiles = document.getElementsByClassName("profile");
-let userSelect = "";
-//بعد از 1 ثانیه گفتم چک بشه چون 1 ثانیه عموما طول می کشه لیست پر بشه
-setTimeout(
-    function () {
-        for (let i = 0; i < profiles.length; i++) {
-            profiles[i].addEventListener("click", function () {
-                if (userSelect != "") {
-                    userSelect.classList.remove("profile-select");
-                    userSelect.classList.add("profile");
-                    userSelect.querySelector(".img-profile").src = "images/profile-circle.svg";
-                }
-                userSelect = profiles[i];
-                userSelect.classList.remove("profile");
-                userSelect.classList.add("profile-select");
-                userSelect.querySelector(".img-profile").src = "images/profile-circle-action.svg";
-                document.getElementById("name-profile-select").textContent = userSelect.querySelector(".name-profile").textContent;
-            });
-        }
-    }, 1000);
+function refreshList() {
+    // خالی کردن لیست
+    document.querySelector(".list").innerHTML = "";
+    // خواندن دوباره اطلاعات 
+    sync();
+    //غیر فعال کردت حالت های سلکت شده
+    document.querySelector(".img-profile-select").style.filter = "blur(1.5px)";
+    document.querySelector(".img-edit").style.filter = "blur(1.5px)";
+    document.querySelector(".img-refresh-text").style.filter = "blur(1.5px)";
+    document.getElementById("name-profile-select").textContent="یک مخاطب انتخاب کنید"
+}
 
 
 
